@@ -497,7 +497,8 @@ public class RebookServiceImpl implements RebookService{
     private QueryOrderResult getOrderByRebookInfo(RebookInfo info, HttpHeaders httpHeaders){
         QueryOrderResult queryOrderResult;
         //改签只能改签一次，查询订单状态来判断是否已经改签过
-        if(info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")){
+        //if(info.getOldTripId().startsWith("G") || info.getOldTripId().startsWith("D")){
+        if(info.getOldTripId().startsWith("D")){
             HttpEntity requestEntityGetOrderByRebookInfo = new HttpEntity(info,httpHeaders);
             ResponseEntity<QueryOrderResult> reGetOrderByRebookInfo = restTemplate.exchange(
                     "http://ts-order-service:12031/order/getById",
