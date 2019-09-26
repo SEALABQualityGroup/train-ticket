@@ -40,6 +40,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
         );
         String verifyResult = (String)rssResponse.getBody();
         System.out.println("[Login Service][Login] Verification Result:" + verifyResult);
+	/* michele: skip verification code
         if(!verifyResult.contains("true")){
             LoginResult verifyCodeLr = new LoginResult();
             verifyCodeLr.setAccount(null);
@@ -48,6 +49,7 @@ public class AccountLoginServiceImpl implements AccountLoginService {
             verifyCodeLr.setMessage("Verification Code Wrong.");
             return verifyCodeLr;
         }
+	*/
 //        LoginResult lr = restTemplate.postForObject(
 //                "http://ts-sso-service:12349/account/login",
 //                li,LoginResult.class);
