@@ -382,7 +382,7 @@ var appConsign = new Vue({
                         var obj = result;
                         var size = obj.length;
                         that.tempSearchRoutes = obj;
-                        that.initSeatClass(size);
+                        //that.initSeatClass(size);
                         for (var i = 0; i < size; i++) {
                             that.tempSearchRoutes[i].startingTime = that.convertNumberToTimeString(obj[i].startingTime);
                             that.tempSearchRoutes[i].endTime = that.convertNumberToTimeString(obj[i].endTime);
