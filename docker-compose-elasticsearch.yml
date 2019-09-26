@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - my-network
+    environment:
+      - cluster.routing.allocation.disk.watermark.low=5gb
+      - cluster.routing.allocation.disk.watermark.high=3gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=2gb
+      - cluster.initial_master_nodes=node-1
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.3.2
+    environment:
+      SERVER_NAME: kibana.org 
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    networks:
+      - my-network
+  
+  zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=http://elasticsearch:9200
+    ports:
+      - 9411:9411
+    networks:
+      - my-network
+
+#  metricbeat:
+#    image: docker.elastic.co/beats/metricbeat:7.3.0
+#    restart: on-failure
+#    depends_on:
+#      - elasticsearch
+#      - kibana
+#    volumes:
+#      - /opt/git/train-ticket/metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+#      - /proc:/hostfs/proc:ro
+#      - /:/hostfs:ro
+#    user: root
+#    networks:
+#      - my-network
+
+volumes:
+  esdata:
+
+networks:
+    my-network:
+      # driver: overlay
+      driver: bridge
