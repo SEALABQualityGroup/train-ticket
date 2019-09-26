@@ -1,0 +1,781 @@
+networks:
+  my-network:
+    driver: bridge
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    networks:
+      my-network: null
+    ports:
+    - 5672:5672/tcp
+    - 15672:15672/tcp
+  redis:
+    image: redis
+    networks:
+      my-network: null
+    ports:
+    - 6379:6379/tcp
+  ts-account-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-admin-basic-info-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-admin-basic-info-service
+    image: ts/ts-admin-basic-info-service
+    networks:
+      my-network: null
+    ports:
+    - 18767:18767/tcp
+    restart: always
+  ts-admin-order-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-admin-order-service
+    image: ts/ts-admin-order-service
+    networks:
+      my-network: null
+    ports:
+    - 16112:16112/tcp
+    restart: always
+  ts-admin-route-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-admin-route-service
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    image: ts/ts-admin-route-service
+    networks:
+      my-network: null
+    ports:
+    - 16113:16113/tcp
+    restart: always
+  ts-admin-travel-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-admin-travel-service
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    image: ts/ts-admin-travel-service
+    networks:
+      my-network: null
+    ports:
+    - 16114:16114/tcp
+    restart: always
+  ts-admin-user-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-admin-user-service
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    image: ts/ts-admin-user-service
+    networks:
+      my-network: null
+    ports:
+    - 16115:16115/tcp
+    restart: always
+  ts-assurance-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-assurance-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-assurance-service
+    image: ts/ts-assurance-service
+    networks:
+      my-network: null
+    ports:
+    - 18888:18888/tcp
+    restart: always
+  ts-basic-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-basic-service
+    image: ts/ts-basic-service
+    networks:
+      my-network: null
+    ports:
+    - 15680:15680/tcp
+    restart: always
+  ts-cancel-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-cancel-service
+    image: ts/ts-cancel-service
+    networks:
+      my-network: null
+    ports:
+    - 18885:18885/tcp
+    restart: always
+  ts-config-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-config-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-config-service
+    image: ts/ts-config-service
+    networks:
+      my-network: null
+    ports:
+    - 15679:15679/tcp
+    restart: always
+  ts-consign-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-consign-price-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-consign-price-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-consign-price-service
+    image: ts/ts-consign-price-service
+    networks:
+      my-network: null
+    ports:
+    - 16110:16110/tcp
+    restart: always
+  ts-consign-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-consign-service
+    image: ts/ts-consign-service
+    networks:
+      my-network: null
+    ports:
+    - 16111:16111/tcp
+    restart: always
+  ts-contacts-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-contacts-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-contacts-service
+    image: ts/ts-contacts-service
+    networks:
+      my-network: null
+    ports:
+    - 12347:12347/tcp
+    restart: always
+  ts-execute-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-execute-service
+    image: ts/ts-execute-service
+    networks:
+      my-network: null
+    ports:
+    - 12386:12386/tcp
+    restart: always
+  ts-food-map-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-food-map-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-food-map-service
+    image: ts/ts-food-map-service
+    networks:
+      my-network: null
+    ports:
+    - 18855:18855/tcp
+    restart: always
+  ts-food-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-food-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-food-service
+    image: ts/ts-food-service
+    networks:
+      my-network: null
+    ports:
+    - 18856:18856/tcp
+    restart: always
+  ts-inside-payment-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-inside-payment-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-inside-payment-service
+    image: ts/ts-inside-payment-service
+    networks:
+      my-network: null
+    ports:
+    - 18673:18673/tcp
+    restart: always
+  ts-login-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-login-service
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+    image: ts/ts-login-service
+    networks:
+      my-network: null
+    ports:
+    - 12342:12342/tcp
+    restart: always
+  ts-news-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-news-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-news-service
+    image: ts/ts-news-service
+    networks:
+      my-network: null
+    ports:
+    - 12862:12862/tcp
+    restart: always
+  ts-notification-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-notification-service
+    image: ts/ts-notification-service
+    networks:
+      my-network: null
+    ports:
+    - 17853:17853/tcp
+    restart: always
+  ts-order-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-order-other-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-order-other-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-order-other-service
+    image: ts/ts-order-other-service
+    networks:
+      my-network: null
+    ports:
+    - 12032:12032/tcp
+    restart: always
+  ts-order-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-order-service
+    image: ts/ts-order-service
+    networks:
+      my-network: null
+    ports:
+    - 12031:12031/tcp
+    restart: always
+  ts-payment-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-payment-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-payment-service
+    image: ts/ts-payment-service
+    networks:
+      my-network: null
+    ports:
+    - 19001:19001/tcp
+    restart: always
+  ts-preserve-other-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-preserve-other-service
+    image: ts/ts-preserve-other-service
+    networks:
+      my-network: null
+    ports:
+    - 14569:14569/tcp
+    restart: always
+  ts-preserve-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-preserve-service
+    image: ts/ts-preserve-service
+    networks:
+      my-network: null
+    ports:
+    - 14568:14568/tcp
+    restart: always
+  ts-price-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-price-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-price-service
+    image: ts/ts-price-service
+    networks:
+      my-network: null
+    ports:
+    - 16579:16579/tcp
+    restart: always
+  ts-rebook-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-rebook-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-rebook-service
+    image: ts/ts-rebook-service
+    networks:
+      my-network: null
+    ports:
+    - 18886:18886/tcp
+    restart: always
+  ts-register-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-register-service
+    image: ts/ts-register-service
+    networks:
+      my-network: null
+    ports:
+    - 12344:12344/tcp
+    restart: always
+  ts-route-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-route-plan-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-route-plan-service
+    image: ts/ts-route-plan-service
+    networks:
+      my-network: null
+    ports:
+    - 14578:14578/tcp
+    restart: always
+  ts-route-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-route-service
+    image: ts/ts-route-service
+    networks:
+      my-network: null
+    ports:
+    - 11178:11178/tcp
+    restart: always
+  ts-seat-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-seat-service
+    image: ts/ts-seat-service
+    networks:
+      my-network: null
+    ports:
+    - 18898:18898/tcp
+    restart: always
+  ts-security-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-security-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-security-service
+    image: ts/ts-security-service
+    networks:
+      my-network: null
+    ports:
+    - 11188:11188/tcp
+    restart: always
+  ts-sso-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-sso-service
+    image: ts/ts-sso-service
+    networks:
+      my-network: null
+    ports:
+    - 12349:12349/tcp
+    restart: always
+  ts-station-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-station-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-station-service
+    image: ts/ts-station-service
+    networks:
+      my-network: null
+    ports:
+    - 12345:12345/tcp
+    restart: always
+  ts-ticket-office-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-ticket-office-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-ticket-office-service
+    image: ts/ts-ticket-office-service
+    networks:
+      my-network: null
+    ports:
+    - 16108:16108/tcp
+    restart: always
+  ts-ticketinfo-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-ticketinfo-service
+    image: ts/ts-ticketinfo-service
+    networks:
+      my-network: null
+    ports:
+    - 15681:15681/tcp
+    restart: always
+  ts-train-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-train-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-train-service
+    image: ts/ts-train-service
+    networks:
+      my-network: null
+    ports:
+    - 14567:14567/tcp
+    restart: always
+  ts-travel-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-travel-plan-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-travel-plan-service
+    image: ts/ts-travel-plan-service
+    networks:
+      my-network: null
+    ports:
+    - 14322:14322/tcp
+    restart: always
+  ts-travel-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-travel-service
+    image: ts/ts-travel-service
+    networks:
+      my-network: null
+    ports:
+    - 12346:12346/tcp
+    restart: always
+  ts-travel2-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-travel2-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-travel2-service
+    image: ts/ts-travel2-service
+    networks:
+      my-network: null
+    ports:
+    - 16346:16346/tcp
+    restart: always
+  ts-ui-dashboard:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-ui-dashboard
+    image: ts/ts-ui-dashboard
+    networks:
+      my-network: null
+    ports:
+    - 80:8080/tcp
+    restart: always
+  ts-verification-code-mongo:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    image: mongo
+    networks:
+      my-network: null
+  ts-verification-code-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-verification-code-service
+    image: ts/ts-verification-code-service
+    networks:
+      my-network: null
+    ports:
+    - 15678:15678/tcp
+    restart: always
+  ts-voucher-mysql:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+    - '3306'
+    image: mysql
+    networks:
+      my-network: null
+  ts-voucher-service:
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+    build:
+      context: ts-voucher-service
+    depends_on:
+    - ts-voucher-mysql
+    image: ts/ts-voucher-service
+    networks:
+      my-network: null
+    ports:
+    - 16101:16101/tcp
+    restart: always
+    volumes:
+    - /var/lib/mysql
+version: '3.0'
+
