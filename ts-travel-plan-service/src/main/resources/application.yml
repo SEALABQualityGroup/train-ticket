@@ -1,5 +1,7 @@
 # HTTP Server
 server:
+  tomcat:
+    max-threads: 1
   port: 14322  # HTTP (Tomcat) port
 
 spring:

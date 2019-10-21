@@ -1,4 +1,6 @@
 server:
+  tomcat:
+    max-threads: 1
   port: 16113
 
 spring:

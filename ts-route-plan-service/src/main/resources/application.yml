@@ -10,4 +10,6 @@ spring:
 
 # HTTP Server
 server:
+  tomcat:
+    max-threads: 1
   port: 14578 # HTTP (Tomcat) port

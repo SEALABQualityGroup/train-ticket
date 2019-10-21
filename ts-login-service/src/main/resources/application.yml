@@ -1,6 +1,8 @@
 
 # HTTP Server
 server:
+  tomcat:
+    max-threads: 1
   port: 12342  # HTTP (Tomcat) port
 
 
